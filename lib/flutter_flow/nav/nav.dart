@@ -1,16 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 import '/index.dart';
-import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -35,17 +29,135 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => HomePageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.showSplashImage
+          ? Builder(
+              builder: (context) => Container(
+                color: const Color(0xFF13293D),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/Logo_CONCRETIZZE_(1).png',
+                    width: 160.0,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            )
+          : const HomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => HomePageWidget(),
+          builder: (context, _) => appStateNotifier.showSplashImage
+              ? Builder(
+                  builder: (context) => Container(
+                    color: const Color(0xFF13293D),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/Logo_CONCRETIZZE_(1).png',
+                        width: 160.0,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ),
+                )
+              : const HomeWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => HomePageWidget(),
+          name: 'Calculadora',
+          path: '/calculadora',
+          builder: (context, params) => const CalculadoraWidget(),
+        ),
+        FFRoute(
+          name: 'Dadoscalculos',
+          path: '/dadoscalculos',
+          builder: (context, params) => DadoscalculosWidget(
+            dadoscalc:
+                params.getParam<String>('dadoscalc', ParamType.String, true),
+            itenscalculados: params.getParam<String>(
+                'itenscalculados', ParamType.String, true),
+          ),
+        ),
+        FFRoute(
+          name: 'Resultadoscalculos',
+          path: '/resultadoscalculos',
+          builder: (context, params) => ResultadoscalculosWidget(
+            dadoscalc:
+                params.getParam<String>('dadoscalc', ParamType.String, true),
+            itenscalculados: params.getParam<String>(
+                'itenscalculados', ParamType.String, true),
+            propcimento: params.getParam('propcimento', ParamType.int),
+            propareia: params.getParam('propareia', ParamType.int),
+            propbrita: params.getParam('propbrita', ParamType.int),
+            propcal: params.getParam('propcal', ParamType.int),
+            largTij: params.getParam('largTij', ParamType.double),
+            altTij: params.getParam('altTij', ParamType.double),
+            compTij: params.getParam('compTij', ParamType.double),
+            largpeca: params.getParam('largpeca', ParamType.double),
+            compPeca: params.getParam('compPeca', ParamType.double),
+            espessPeca: params.getParam('espessPeca', ParamType.double),
+            compPil: params.getParam('compPil', ParamType.double),
+            largPil: params.getParam('largPil', ParamType.double),
+            altPil: params.getParam('altPil', ParamType.double),
+            largVig: params.getParam('largVig', ParamType.double),
+            altVig: params.getParam('altVig', ParamType.double),
+            compVig: params.getParam('compVig', ParamType.double),
+            largJuntaArg: params.getParam('largJuntaArg', ParamType.double),
+            quantPilar: params.getParam('quantPilar', ParamType.double),
+            largJuntaTij: params.getParam('largJuntaTij', ParamType.double),
+            espessura: params.getParam('espessura', ParamType.double),
+            area: params.getParam('area', ParamType.double),
+          ),
+        ),
+        FFRoute(
+          name: 'gestaodeobra',
+          path: '/gestaodeobra',
+          builder: (context, params) => const GestaodeobraWidget(),
+        ),
+        FFRoute(
+          name: 'home',
+          path: '/home',
+          builder: (context, params) => const HomeWidget(),
+        ),
+        FFRoute(
+          name: 'lojasparceiras',
+          path: '/lojasparceiras',
+          builder: (context, params) => const LojasparceirasWidget(),
+        ),
+        FFRoute(
+          name: 'ListaTarefas',
+          path: '/listaTarefas',
+          builder: (context, params) => ListaTarefasWidget(
+            idobra: params.getParam('idobra', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'ListaGastos',
+          path: '/listaGastos',
+          builder: (context, params) => ListaGastosWidget(
+            idobra: params.getParam('idobra', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'ListaEstoque',
+          path: '/listaEstoque',
+          builder: (context, params) => ListaEstoqueWidget(
+            idobra: params.getParam('idobra', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'ListaCompras',
+          path: '/listaCompras',
+          builder: (context, params) => ListaComprasWidget(
+            idobra: params.getParam('idobra', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'PagLojaparceira',
+          path: '/pagLojaparceira',
+          builder: (context, params) => PagLojaparceiraWidget(
+            loja: params.getParam(
+                'loja', ParamType.DocumentReference, false, ['lojasparceiras']),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -117,6 +229,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -130,11 +243,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(
-      param,
-      type,
-      isList,
-    );
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 
@@ -174,13 +284,20 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: PageTransition(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
                     child: child,
-                  ).transitionsBuilder,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
                 )
               : MaterialPage(key: state.pageKey, child: child);
         },
@@ -201,5 +318,25 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+}
+
+class RootPageContext {
+  const RootPageContext(this.isRootPage, [this.errorRoute]);
+  final bool isRootPage;
+  final String? errorRoute;
+
+  static bool isInactiveRootPage(BuildContext context) {
+    final rootPageContext = context.read<RootPageContext?>();
+    final isRootPage = rootPageContext?.isRootPage ?? false;
+    final location = GoRouter.of(context).location;
+    return isRootPage &&
+        location != '/' &&
+        location != rootPageContext?.errorRoute;
+  }
+
+  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+        value: RootPageContext(true, errorRoute),
+        child: child,
+      );
 }

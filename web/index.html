@@ -19,7 +19,7 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="InternetCheck">
+  <meta name="apple-mobile-web-app-title" content="Concretizze">
 
   
 
@@ -29,15 +29,15 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <!-- Open Graph & SEO tags -->
-  <meta property="og:title" content="InternetCheck" />
+  <meta property="og:title" content="Concretizze" />
   <meta property="og:description" content="Built with FlutterFlow." />
   <meta property="og:image" content="https://storage.googleapis.com/flutterflow-prod-hosting/og_splash_gradient.png" /> 
-  <meta name="twitter:title" content="InternetCheck" />
+  <meta name="twitter:title" content="Concretizze" />
   <meta name="twitter:description" content="Built with FlutterFlow." />
   <meta name="twitter:image" content="https://storage.googleapis.com/flutterflow-prod-hosting/og_splash_gradient.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title> InternetCheck </title>
+  <title> Concretizze </title>
   <meta name="description" content="Built with FlutterFlow." />
     
 
@@ -54,8 +54,12 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  
+  
+  
+  
+  
   <script>
-    
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -66,16 +70,12 @@
         },
         onEntrypointLoaded: async function(engineInitializer) {
           // Initialize the Flutter engine
-          let appRunner = await engineInitializer.initializeEngine();
+          let appRunner = await engineInitializer.initializeEngine({});
           // Run the app
           await appRunner.runApp();
         }
       });
     });
   </script>
-  
-  
-  
-  
 </body>
 </html>

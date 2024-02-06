@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "343972063309",
+    "project_id": "concretizze-3e05e",
+    "storage_bucket": "concretizze-3e05e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343972063309:android:b524c733e14377f794d404",
+        "android_client_info": {
+          "package_name": "br.com.concretizze.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfLGQAt3OfFGTnSxWWewloBoTbQkQLbFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343972063309:android:2e0349fbda4b251694d404",
+        "android_client_info": {
+          "package_name": "com.mycompany.concretizze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfLGQAt3OfFGTnSxWWewloBoTbQkQLbFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
